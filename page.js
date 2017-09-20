@@ -104,4 +104,48 @@ Page:{//跳转分页
 			}
 		}
 	},
+		
+		
+		Ajax:{//异步请求, form表单ID,url请求路径,param参数对象,如：{a:'test',b:2},fn回调函数
+		doRequest:function(form,url,param,fn,isContinue)
+		{
+			var params = form || param || {};
+			if (typeof form == 'string')
+			{
+				params = $.extend(param || {},SYS.Object.serialize($("#" + form)),{menu:SYS.Url.getParam("menu")},{"isContinue":isContinue});
+			}
+			$.ajax({type:'POST',url:url,data:params,dataType:'json',success:function(data, textStatus){
+				if(data.res==1){
+					if (typeof(fn)=='function'){
+						fn.call(this, data);}
+				}else if((isContinue==null||isContinue==undefined)&&data.res==2){
+				  SYS.Model.confirm(data.resMsg,function(){SYS.Ajax.doRequest(form,url,param,fn,true)});
+				}else{
+					if(SYS.Object.notNull(data.resMsg))
+						SYS.Model.error(data.resMsg);
+				}
+			},error:function(){
+				return;
+			},beforeSend:function(){},
+				complete:function(){
+
+				}
+			});
+		}, req:function(form,url,param,fn)
+		{
+			var params = form || param || {};
+			if (typeof form == 'string'){
+				params = $.extend(param || {},SYS.Object.serialize($("#" + form)),{menu:SYS.Url.getParam("menu")});
+			}
+			$.ajax({type:'POST',url:url,data:params,dataType:'json',success:function(data, textStatus) {
+				if (typeof(fn)=='function'){
+					fn.call(this, data);
+				}
+			},error:function(){
+				return;
+			}
+				,beforeSend:function(){}
+				,complete:function(){}
+			});
+		}}};
 
