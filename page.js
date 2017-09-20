@@ -1,5 +1,5 @@
 function getbaseList(){
-	SYS.Model.loading();
+	SYS.Model.loading(); //加载框提示
 	SYS.Ajax.doRequest("pageForm",path +'/path/findByPage',null,function(data){
 		 $("#table tbody").empty();
     		 var obj=data.obj;
@@ -26,7 +26,7 @@ function getbaseList(){
         		$("#table tbody").append(html);
         		$("#pageId ul").empty();//清空分页
         	 }	 	        	 
-    	 SYS.Model.loadingClose();
+    	 SYS.Model.loadingClose(); //关闭加载框
 	});
 }
 
