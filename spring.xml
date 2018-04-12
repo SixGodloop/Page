@@ -1,0 +1,11 @@
+ <bean id="mysqlSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="plugins"><array><ref bean="pagePlugin" /></array></property>
+    </bean>
+    <!-- 分页配置-->
+    <bean id="pagePlugin" class="com.yscredit.provider.util.page.PageInterceptor">
+        <property name="properties">
+            <props>
+                <prop key="databaseType">mysql</prop>
+            </props>
+        </property>
+    </bean>
