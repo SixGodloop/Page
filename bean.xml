@@ -1,7 +1,0 @@
-<bean id="pagePlugin" class="com.yscredit.pgp.gateway.page.PageInterceptor">
-        <property name="properties">
-            <props>
-                <prop key="databaseType">mysql</prop>
-            </props>
-        </property>
-    </bean>
